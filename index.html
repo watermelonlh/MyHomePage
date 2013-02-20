@@ -7,13 +7,21 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
       var links = {
-	Blog: "http://watermelonl.info/blog",
-	Github: "https://github.com/watermelonlh",
-	Weibo: "http://weibo.com/3133737825",
-	Facebook: "http://www.facebook.com/guyue.liu.35",
-	Douban: "http://www.douban.com/people/watermelonlh/",
-	PhotoAlbum: "http://lyqhjk.pp.163.com"
+        Blog: "http://watermelonl.info/blog",
+        Github: "https://github.com/watermelonlh",
+        Weibo: "http://weibo.com/3133737825",
+        Facebook: "http://www.facebook.com/guyue.liu.35",
+        Douban: "http://www.douban.com/people/watermelonlh/",
+        PhotoAlbum: "http://lyqhjk.pp.163.com"
       };
+      var descriptions = {
+        Blog: "Take notes of daily life and geek stuff",
+        Github: "Project Repo",
+        Weibo: "Friends and the social world",
+        Facebook: "Friends out of lawless country",
+        Douban: "Songs, Movies and Books",
+        PhotoAlbum: "Close to mum and dad, close to home"
+      }
       var favColors = ["#7BBFEA", "#F7EC1E", "#ED7B34", "#92F25A", "#A4A9EB", "#7CDEEB", "#B8F4FF", "#FF6961", "#E46084"];
       var init = function(event){
 		for (var i = 0; i < favColors.length;i++) 
@@ -24,7 +32,36 @@
 			favColors[i] = tmp;
 		}
 		$(".item").each(function(){ 
-//			console.log($(this).attr('id'));
+            $(this).hover(
+                function () {
+                    console.log("hover" + $(this));
+                    $(this).animate({
+                        width: "1200px"
+                    }, 300);
+                    console.log($(this).find("p")); 
+                    var title = $(this).find("p");
+                    title.animate({
+                        "font-size": "25px",
+                    }, 300);
+                    var t = $(this).attr('id');
+                    var desc=$("<span></span>").text(descriptions[t]).addClass("description");
+                    console.log(desc);
+                    title.append(desc);
+                    desc.animate({
+                        "font-size": "20px",
+                    }, 300);
+                },
+                function () {
+                    console.log("out hover" + $(this));
+                    $(this).animate({
+                        width: "220px"
+                    }, 300);
+                    $(this).find(".title").animate({
+                        "font-size": "20px",
+                    }, 300);
+                    $(this).find("span").remove();
+                }
+            );
 			$(this).css("background-color", favColors[$(this).index()]);
 		});
       };
@@ -36,56 +73,57 @@
 	height: 120px;
 	background: #7BBFEA;
 	margin: 1px;
+    padding-left: 20px;
 	position: relative;
 	cursor: pointer;
       }
       .item:hover{
-	background:#BEC0C4
+            background:#BEC0C4
       }
-      .item p{
-      	cursor: pointer;
-	top: 30%;
-	margin: 0px;
-	font-size: 20px;
-	text-align: center;
-	vertical-align: middle;
-	line-height: 120px;
-	font-family: "Lucida Console", Monaco, monospace;
-      }</style>
+          .title{
+            cursor: pointer;
+            top: 30%;
+            margin: 0px;
+            font-size: 20px;
+            text-align: left;
+            vertical-align: middle;
+            line-height: 120px;
+            font-weight: 300;
+            font-family: "Lucida Console", Monaco, monospace;
+          }
+          .description{
+            position: absolute;
+            left: 270px;
+            font-size: 5px;
+            font-weight: 100;
+            font-style:oblique;
+
+            font-family:Georgia, serif;
+          }
+    </style>
 </head>
 <body style="background-color: #f5fffb">
 <div>
-<div class="item" id="Blog">
-<p>Blog</p></div>
-<div class="item" id="Github">
-<p>Github</p></div>
-<div class="item" id="Weibo">
-<p>Weibo</p></div>
-<div class="item" id="Facebook">
-<p>Facebook</p></div>
-<div class="item" id="Douban">
-<p>Douban</p></div>
-<div class="item" id="PhotoAlbum">
-<p>Daddy&#39;s Photos</p></div>
+    <div class="item" id="Blog">
+    <p class="title">Blog</p></div>
+    <div class="item" id="Github">
+    <p class="title">Github</p></div>
+    <div class="item" id="Weibo">
+    <p class="title">Weibo</p></div>
+    <div class="item" id="Facebook">
+    <p class="title">Facebook</p></div>
+    <div class="item" id="Douban">
+    <p class="title">Douban</p></div>
+    <div class="item" id="PhotoAlbum">
+    <p class="title">Daddy&#39;s Photos</p></div>
 </div>
-<!--
-<div id="clustrmaps-widget"></div><script type="text/javascript">var _clustrmaps = {'url' : 'http://watermelonl.info', 'user' : 1072938, 'server' : '4', 'id' : 'clustrmaps-widget', 'version' : 1, 'date' : '2013-01-17', 'lang' : 'en', 'corners' : 'square' };(function (){ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'http://www4.clustrmaps.com/counter/map.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);})();</script><noscript><a href="http://www4.clustrmaps.com/user/cca105f2a"><img src="http://www4.clustrmaps.com/stats/maps-no_clusters/watermelonl.info-thumb.jpg" alt="Locations of visitors to this page" /></a></noscript>
-
-<center><script type="text/javascript" src="http://widget.supercounters.com/flag.js"></script><script type="text/javascript">sc_flag(453646,"FFFFFF","000000","cccccc",2,10,0,0)</script><br><noscript><a href="http://www.supercounters.com/">Flag Counter</a></noscript>
-</center>
-
-<center><script type="text/javascript" src="http://widget.supercounters.com/vt.js"></script><script type="text/javascript">var sc_visitor_var = sc_visitor_var || [];sc_vt(453651,"FFFFFF","cccccc","000000",10)</script><br><noscript><a href="http://www.supercounters.com/">Visitor Tracker</a></noscript>
-</center>
- -->
 </body>
 <script>
       $(".item").click(function() {
-	var t = $(this).attr('id');
-	console.log(t);
-	//alert(t);
-	//alert(t === "Blog");
-	//alert(links[t]);
-	window.location = links[t];
+        var t = $(this).attr('id');
+        console.log(t);
+        //window.location = links[t];
+        window.open(links[t]);
       });
 </script>
 </html>
