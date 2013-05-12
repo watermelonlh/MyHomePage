@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link REL="SHORTCUT ICON" HREF="/favicon.ico">
+<title>Geek Melon</title>
+<meta content="" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+      var links = {
+        Blog: "http://watermelonl.info/blog",
+        Github: "https://github.com/watermelonlh",
+        ReadingNotes: "http://watermelonlh.github.io/ReadingNotes/",
+        Weibo: "http://weibo.com/3133737825",
+        Facebook: "http://www.facebook.com/guyue.liu.35",
+        Douban: "http://www.douban.com/people/watermelonlh/",
+        PhotoAlbum: "http://watermelonlh.pp.163.com",
+        DadPhotoAlbum: "http://lyqhjk.pp.163.com"
+      };
+      var ids = ["Blog", "Github", "ReadingNotes", "Weibo", "Facebook", "Douban", "PhotoAlbum", "DadPhotoAlbum"];
+      var titles = {
+        Blog: "Blog",
+        Github: "Github",
+        ReadingNotes: "Reading Notes",
+        Weibo: "Weibo",
+        Facebook: "Facebook",
+        Douban: "Douban",
+        PhotoAlbum: "My Photos",
+        DadPhotoAlbum: "Daddy's Photos"
+      };
+      var descriptions = {
+        Blog: "Take notes of daily life and geek stuff",
+        Github: "Project Repo",
+        ReadingNotes: "Reading Notes Export from Kindle",
+        Weibo: "Friends and the social world",
+        Facebook: "Friends out of lawless country",
+        Douban: "Songs, Movies and Books",
+        PhotoAlbum: "Follow my daddy, new photographer comes",
+        DadPhotoAlbum: "Close to mum and dad, close to home"
+      }
+     //"#FF6961", " , "#E46084""#F7EC1E", "
+      var favColors = ["#FFFEAB", "#F0DEB9", "#FCF61E", "#E6DFE6", "#CCDEF2", "#7BBFEA", "#FEA087", "#92F25A", "#A4A9EB", "#7CDEEB", "#B8F4FF"];
+      var init = function(event){
+        for (var i = 0; i < ids.length; i++)
+        {
+            var item = $('<li>');
+            item.addClass("item");
+            item.addClass("common");
+            item.attr('id', ids[i]);
+
+            var title = $("<div>");
+            title.addClass("title common");
+            title.append($("<span>").addClass("title-span").text(titles[ids[i]]));
+
+            var desc = $("<div>");
+            desc.addClass("description common");
+            desc.append($("<span>").addClass("description-span").text(descriptions[ids[i]]));
+
+            item.append(title);
+            item.append(desc);
+            $('#myitems').append(item);
+        }
+		for (var i = 0; i < favColors.length;i++) 
+		{ 
+			var rIndex = Math.floor(Math.random() * (favColors.length - i)) + i;
+			var tmp = favColors[rIndex];
+			favColors[rIndex] = favColors[i];
+			favColors[i] = tmp;
+		}
+		$(".item").each(function(){ 
+			$(this).css("background-color", favColors[$(this).index()]);
+
+            $(".title", this).hover(
+                function () {
+                    console.log("on");
+                    $(this).next(".description").stop(true, true).toggle("slide", {direction: 'down'}, 200);
+                }
+            );
+            $(".description", this).hover(
+                function() {
+                },
+                function () {
+                    console.log("leave");
+                    $(this).stop(true, true).toggle("slide", {direction: 'down'}, 200);
+                }
+            )
+		});
+      };
+      $(document).ready(init);
+    </script>
+<style>
+    ul{
+        list-style: none;
+        margin: 100px 150px;
+    }
+    span{
+        text-align: center;
+        display: block;
+    }
+      .item{
+        float: left;
+        margin: 1px;
+        cursor: pointer;
+      }
+
+          .common{
+            width: 240px;
+            height: 240px;
+          }
+          .title{
+            width: 240px;
+            position: relative;
+            font-size: 20px;
+            text-align: middle;
+            vertical-align: middle;
+            font-weight: 300;
+            font-family: "Lucida Console", Monaco, monospace;
+          }
+          .title-span
+          {
+            padding-top: 100px;
+          }
+
+          .description{
+            position: relative;
+            bottom: 240px;
+            background: #000;
+            opacity: .4;
+            color: #FFF;
+            font-size: 15px;
+            font-family:Georgia, serif;
+            display: none;
+            z-index: 9;
+          }
+          .description-span
+          {
+            padding-top: 130px;
+          }
+    </style>
+</head>
+<body style="background-color: #f5fffb">
+<ul id='myitems'>
+</ul>
+</body>
+<script>
+      $(".item").click(function() {
+        var t = $(this).attr('id');
+        //window.location = links[t];
+        window.open(links[t]);
+      });
+</script>
+</html>
