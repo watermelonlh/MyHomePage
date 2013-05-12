@@ -83,7 +83,10 @@
                     console.log("leave");
                     $(this).stop(true, true).toggle("slide", {direction: 'down'}, 200);
                 }
-            )
+            ).click(function() {
+                var t = $(this).parent().attr("id");
+                window.open(links[t]);
+            });
 		});
       };
       $(document).ready(init);
@@ -142,11 +145,4 @@
 <ul id='myitems'>
 </ul>
 </body>
-<script>
-      $(".item").click(function() {
-        var t = $(this).attr('id');
-        //window.location = links[t];
-        window.open(links[t]);
-      });
-</script>
 </html>
