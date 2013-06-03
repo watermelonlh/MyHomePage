@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block script %}
+  function sortProblems(compare) {
+    var problems = $("problemList tr");
+  problems.sort(compare(a, b));
+  }
+  function searchProblems(matchString) {
+    var problems = $("problemList tr");
+	var colIndex = $('td:contains("Title")').index();
+	$("problemList tr").remove();
+	$.each(problems, function(index, problem) {
+	  var title = $("td:eq(" + colIndex + ") a", problem).text();
+	  if (title.match('/' + matchString + '/i'))
+	  {
+	    $("problemList tr").append(this);
+	  }
+	});
+  }
+  $("#freshBtn").click(function(){
+    var colIndex = $('td:contains("Add Date")').index();
+	var order = this.attr('order');
+	sortProblems(function (a, b){
+	  return (a<b) ? -order : order;
+	});
+	this.attr('order') = -order;
+  });
+  $("#titleBtn").click(function(){
+    var colIndex = $('td:contains("Title")').index();
+	var order = this.attr('order');
+    sortProblems(function (a, b) {
+	  return (a<b) ? -order : order;
+	});
+	this.attr('order') = -order;
+  });
+{% end %}
+{% block title %}LeetCode NOJ Problems{% endblock %}
+
+{% block content %}
+  <div class="container">
+    {% if question_list %}
+      <div class="row">
+        <h4 class="span12 text-center">Questions List</h4>
+      </div>
+      <div class="row">
+        <table class="span6 offset3 table table-striped">
+          <thead id="problemListHead">
+          <tr>
+          <td>
+            Sort Question By: <a id="freshBtn" order=1>Fresh</a> or <a id="titleBtn" order=1>Title</a>
+          </td>
+          <td>
+            <form class="form-search text-right">
+              <div class="input-append">
+                <input type="text" class="span2 search-query">
+                <button type="submit" class="btn"><i class="icon-search"></i></button>
+              </div>
+			</form>
+          </td>
+          </tr>
+          </thead>
+          <tbody id="problemList">
+            {% for question in question_list %}
+              <tr><td colspan="3"><div class="text-center"><a href="/problems/{{ question.id }}">{{ question.title }}</a></td></tr>
+              <!-- fake several rows -->
+              <tr><td colspan="3"><div class="text-center"><a href="/problems/{{ question.id }}">{{ question.title }}</a></td></tr>
+              <tr><td colspan="3"><div class="text-center"><a href="/problems/{{ question.id }}">{{ question.title }}</a></td></tr>
+              <tr><td colspan="3"><div class="text-center"><a href="/problems/{{ question.id }}">{{ question.title }}</a></td></tr>
+              <tr><td colspan="3"><div class="text-center"><a href="/problems/{{ question.id }}">{{ question.title }}</a></td></tr>
+              <!-- end fake  -->
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <h4>No questions are available.</h4>
+    {% endif %}
+  </div>
+{% endblock %}
